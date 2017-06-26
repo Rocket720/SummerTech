@@ -21,7 +21,7 @@ public class TicTacToe {
 			System.out.println(board[i]);
 		}
 	}
-	public static void makeMove(){
+	public static int[] makeMove(int[] x, int[] y){
 		Scanner val = new Scanner(System.in);
 
 		int[] coordinates = new int[2];
@@ -50,5 +50,6 @@ public class TicTacToe {
 			System.out.println(coordinates[i]);
 
 		}
+		return(coordinates);
 	}
 }
