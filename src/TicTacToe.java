@@ -26,6 +26,7 @@ public class TicTacToe {
 		coordinates[0] = xCoord;
 		coordinates[1] = yCoord;
 
+		System.out.println("hi");
 		if(xCoord > 3 || yCoord > 3){
 			for(xCoord > 3 || yCoord > 3){
 				System.out.println("invalid input, try again");
