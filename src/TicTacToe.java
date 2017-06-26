@@ -28,7 +28,7 @@ public class TicTacToe {
 
 		System.out.println("hi");
 		if(xCoord > 3 || yCoord > 3){
-			for(xCoord > 3 || yCoord > 3){
+			while(xCoord > 3 || yCoord > 3){
 				System.out.println("invalid input, try again");
 
 				xCoord = val.nextInt();
