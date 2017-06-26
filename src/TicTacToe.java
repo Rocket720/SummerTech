@@ -2,6 +2,13 @@ import java.util.Scanner;
 public class TicTacToe {
 
 	public static void main(String[] args) {
+
+		while(1 > 0){
+			makeBoard(); 
+			makeMove();
+		}
+	}
+	public static void makeBoard(){
 		char[][] board = new char[3][3];
 
 		for(int i = 0; i < board.length; i++){
@@ -13,9 +20,8 @@ public class TicTacToe {
 		for(int i = 0; i < board.length; i++){
 			System.out.println(board[i]);
 		}
-		int[] pos = makeMove();
 	}
-	public static int[] makeMove(){
+	public static void makeMove(){
 		Scanner val = new Scanner(System.in);
 
 		int[] coordinates = new int[2];
@@ -27,26 +33,22 @@ public class TicTacToe {
 		coordinates[1] = yCoord;
 
 		System.out.println("hi");
-		if(xCoord > 3 || yCoord > 3){
-			while(xCoord > 3 || yCoord > 3){
-				System.out.println("invalid input, try again");
+		while(xCoord > 3 || yCoord > 3){
 
-				xCoord = val.nextInt();
-				yCoord = val.nextInt();
+			System.out.println("invalid input, try again");
 
-				coordinates[0] = xCoord;
-				coordinates[1] = yCoord;
-			}
+			xCoord = val.nextInt();
+			yCoord = val.nextInt();
 
+			coordinates[0] = xCoord;
+			coordinates[1] = yCoord;
 
 		}
-		else if(xCoord < 3 || yCoord < 3){
-			for(int i = 0; i < coordinates.length; i++){
-				System.out.println(coordinates[i]);
-			}
+		System.out.println("Ok fine that one works");
+		for(int i = 0; i < coordinates.length; i++){
+
+			System.out.println(coordinates[i]);
+
 		}
-
-
-		return(coordinates);
 	}
 }
