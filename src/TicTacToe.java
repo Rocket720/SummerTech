@@ -1,29 +1,28 @@
 import java.util.Scanner;
 public class TicTacToe {
-	private static boolean winCheck = false;				//lines 3-8 set up variables for global usage
-	private static int finalX;
-	private static int finalY;
+	private static int finalX;								//lines 3-8 set up variables for global usage
+	private static int finalY;								
 	public static boolean pickState = true;
 	public static char[][] board = new char[3][3];
-	public static String whoWon;
-	public static String whoLost;
 
 	public static void main(String[] args) {
-		makeIBoard();										//makes he 3x3 grid
+		String[] who = new String[3]; 
+		who = win(who);
+		int[] allCoords = new int[2];
+		
+		initialBoard();										//makes he 3x3 grid
+		
+		while(who[2].equals("false")){
 
-		while(winCheck != true){
+			allCoords = 	pickMove(allCoords);										// lines 14-21 runs through functions until win
 
-			pickMove();										// lines 14-21 runs through functions until win
-
-			makeBoard();
-
-			win();
+			who = win(who);
 		}
-		System.out.println(whoWon + " wins!");				//writes winner
-		System.out.println(whoLost + " loses!");				//writes loser
+		System.out.println(who[1] + " wins!");				//writes winner
+		System.out.println(who[0] + " loses!");			//writes loser
 	}
 
-	public static void makeIBoard(){						//function for initial Board
+	public static void initialBoard(){						//function for initial Board
 
 		for(int i = 0; i < board.length; i++){
 			for(int j = 0; j < board.length; j++){
@@ -35,15 +34,15 @@ public class TicTacToe {
 		}
 	}
 
-	public static void pickMove(){							//function for user coordinate input
-
-		boolean makeMove = false;
+	public static int[] pickMove(int[] allCoords){							//function for user coordinate input
+		makeBoard();
+		
 		Scanner val = new Scanner(System.in);
 		int xCoord = val.nextInt() - 1;						//42-46 take initial input
 		int yCoord = val.nextInt() - 1;
 
-		finalX = xCoord;
-		finalY = yCoord;
+		allCoords[0] = xCoord;
+		allCoords[1] = yCoord;
 
 		while(xCoord > 3 || yCoord > 3 || board[xCoord][yCoord] == 'X' || board[xCoord][yCoord] == 'O'){
 
@@ -53,22 +52,25 @@ public class TicTacToe {
 			yCoord = val.nextInt() - 1;						//values must be less than 3, and not overwriting
 		}
 
-		finalX = xCoord;
-		finalY = yCoord;
+		allCoords[0] = xCoord;
+		allCoords[1] = yCoord;
 
 		System.out.println("Valid numbers chosen");			//indicates a valid input
 
+		return(allCoords);
 	}
 
 	public static void makeBoard(){							//function for writing board in an ongoing game
-
+		int[] allCoords = new int[2]; 
+		allCoords = pickMove(allCoords);
+		
 		if(pickState == true){
-			board[finalX][finalY] = 'X';
+			board[allCoords[0]][allCoords[1]] = 'X';
 			pickState = false;
 			System.out.println("It's O's turn");			//tells who's turn it it
 		}
 		else if(pickState != true){
-			board[finalX][finalY] = 'O';
+			board[allCoords[0]][allCoords[1]] = 'O';
 			pickState = true;
 			System.out.println("It's X's turn");			//tells who's turn it it
 		}
@@ -77,53 +79,54 @@ public class TicTacToe {
 		}
 	}
 
-	public static void win(){								//function for determining wins, losses, and ties
-
+	public static String[] win(String[] who){								//function for determining wins, losses, and ties
+		//Note: who[0] = Loser, who[1] = Winner, who[2] = win state
+		who[2] = "false";
 		int tie = 9;
 
 		for(int i = 0; i < 3; i++){
 			//win statements HVD for X
 			if(board[i][0] == 'X' && board[i][1] == 'X' && board[i][2] == 'X'){
-				winCheck = true;							//Vertical
-				whoWon = "X";
-				whoLost = "O";
+				who[2] = "true";							//Vertical
+				who[0] = "O";
+				who[1] = "X";
 			}
 			else if(board[0][i] == 'X' && board[1][i] == 'X' && board[2][i] == 'X'){
-				winCheck = true;							//Horizontal
-				whoWon = "X";
-				whoLost = "O";
+				who[2] = "true";						//Horizontal
+				who[0] = "O";
+				who[1] = "X";
 			}
 			else if(board[0][0] == 'X' && board[1][1] == 'X' && board[2][2] == 'X'){
-				winCheck = true;							//Diagonal Down L -> R
-				whoWon = "X";
-				whoLost = "O";
+				who[2] = "true";							//Diagonal Down L -> R
+				who[0] = "O";
+				who[1] = "X";
 			}
 			else if(board[2][0] == 'X' && board[1][1] == 'X' && board[0][2] == 'X'){
-				winCheck = true;							//Diagonal Up L -> R
-				whoWon = "X";
-				whoLost = "O";
+				who[2] = "true";						//Diagonal Up L -> R
+				who[0] = "O";
+				who[1] = "X";
 			}
 
 			//win statement HVD for O
 			if(board[i][0] == 'O' && board[i][1] == 'O' && board[i][2] == 'O'){
-				winCheck = true;							//Vertical
-				whoWon = "O";
-				whoLost = "X";
+				who[2] = "true";						//Vertical
+				who[0] = "X";
+				who[1] = "O";
 			}
 			else if(board[0][i] == 'O' && board[1][i] == 'O' && board[2][i] == 'O'){
-				winCheck = true;							//Horizontal
-				whoWon = "O";
-				whoLost = "X";
+				who[2] = "true";						//Horizontal
+				who[0] = "X";
+				who[1] = "O";
 			}
 			else if(board[0][0] == 'O' && board[1][1] == 'O' && board[2][2] == 'O'){
-				winCheck = true;							//Diagonal Down L -> R
-				whoWon = "O";
-				whoLost = "X";
+				who[2] = "true";						//Diagonal Down L -> R
+				who[0] = "X";
+				who[1] = "O";
 			}
 			else if(board[2][0] == 'O' && board[1][1] == 'O' && board[0][2] == 'O'){
-				winCheck = true;							//Diagonal Up L -> R
-				whoWon = "O";
-				whoLost = "X";
+				who[2] = "true";						//Diagonal Up L -> R
+				who[0] = "X";
+				who[1] = "O";
 			}
 
 			//draw
@@ -133,10 +136,11 @@ public class TicTacToe {
 				}
 			}
 		}
-		if(tie == 0 && winCheck == false){					//concludes tie if all spots are filled with no winner
-			whoWon = "Nobody";
-			whoLost = "Everybody";
-			winCheck = true;
+		if(tie == 0 && who[2] == "false"){					//concludes tie if all spots are filled with no winner
+			who[1] = "Nobody";
+			who[0] = "Everybody";
+			who[2] = "true";
 		}
+		return(who);
 	}
 }
