@@ -1,20 +1,19 @@
 import java.util.Scanner;
 public class TicTacToe {
-	private static int finalX;								//lines 3-8 set up variables for global usage
-	private static int finalY;								
-	public static boolean pickState = true;
+								//lines 3-8 set up variables for global usage
+								
 	public static char[][] board = new char[3][3];
 
 	public static void main(String[] args) {
 		String[] who = new String[3]; 
-		who = win(who);
+		
 		int[] allCoords = new int[2];
 		
 		initialBoard();										//makes he 3x3 grid
-		
+		who = win(who);
 		while(who[2].equals("false")){
-
-			allCoords = 	pickMove(allCoords);										// lines 14-21 runs through functions until win
+			
+			allCoords = pickMove(allCoords);										// lines 14-21 runs through functions until win
 
 			who = win(who);
 		}
@@ -35,14 +34,11 @@ public class TicTacToe {
 	}
 
 	public static int[] pickMove(int[] allCoords){							//function for user coordinate input
-		makeBoard();
+		
 		
 		Scanner val = new Scanner(System.in);
 		int xCoord = val.nextInt() - 1;						//42-46 take initial input
 		int yCoord = val.nextInt() - 1;
-
-		allCoords[0] = xCoord;
-		allCoords[1] = yCoord;
 
 		while(xCoord > 3 || yCoord > 3 || board[xCoord][yCoord] == 'X' || board[xCoord][yCoord] == 'O'){
 
@@ -54,23 +50,22 @@ public class TicTacToe {
 
 		allCoords[0] = xCoord;
 		allCoords[1] = yCoord;
-
+		
 		System.out.println("Valid numbers chosen");			//indicates a valid input
-
+		makeBoard(allCoords);
 		return(allCoords);
 	}
 
-	public static void makeBoard(){							//function for writing board in an ongoing game
-		int[] allCoords = new int[2]; 
-		allCoords = pickMove(allCoords);
+	public static void makeBoard(int[] input){							//function for writing board in an ongoing game
+		boolean pickState = false;
 		
 		if(pickState == true){
-			board[allCoords[0]][allCoords[1]] = 'X';
+			board[input[0]][input[1]] = 'X';
 			pickState = false;
 			System.out.println("It's O's turn");			//tells who's turn it it
 		}
 		else if(pickState != true){
-			board[allCoords[0]][allCoords[1]] = 'O';
+			board[input[0]][input[1]] = 'O';
 			pickState = true;
 			System.out.println("It's X's turn");			//tells who's turn it it
 		}
@@ -133,6 +128,7 @@ public class TicTacToe {
 			for(int j = 0; j < 3; j++){						//checks for the filling of all spots
 				if(board[i][j] != '*'){
 					tie--;
+					//System.out.println(tie);
 				}
 			}
 		}
