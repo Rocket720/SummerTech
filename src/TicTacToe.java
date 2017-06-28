@@ -1,27 +1,33 @@
 import java.util.Scanner;
 public class TicTacToe {
-								//lines 3-8 set up variables for global usage
-								
-	public static char[][] board = new char[3][3];
+								//lines 3-8 set up variables for global usage 
 
 	public static void main(String[] args) {
+		char[][] board = new char[3][3];
 		String[] who = new String[3]; 
 		
 		int[] allCoords = new int[2];
 		
-		initialBoard();										//makes he 3x3 grid
-		who = win(who);
+		initialBoard(board);										//makes he 3x3 grid
+		who = win(who, board);
+		boolean q = false;
 		while(who[2].equals("false")){
-			
-			allCoords = pickMove(allCoords);										// lines 14-21 runs through functions until win
+			if(q == false){
+				q = true;
+			}
+			else if(q == true){
+				q = false;
+			}
+			allCoords = pickMove(allCoords, q, board);										// lines 14-21 runs through functions until win
 
-			who = win(who);
+			who = win(who, board);
 		}
+		System.out.println();
 		System.out.println(who[1] + " wins!");				//writes winner
 		System.out.println(who[0] + " loses!");			//writes loser
 	}
 
-	public static void initialBoard(){						//function for initial Board
+	public static void initialBoard(char[][] board){						//function for initial Board
 
 		for(int i = 0; i < board.length; i++){
 			for(int j = 0; j < board.length; j++){
@@ -33,7 +39,7 @@ public class TicTacToe {
 		}
 	}
 
-	public static int[] pickMove(int[] allCoords){							//function for user coordinate input
+	public static int[] pickMove(int[] allCoords, boolean transfer, char[][] board){							//function for user coordinate input
 		
 		
 		Scanner val = new Scanner(System.in);
@@ -52,12 +58,11 @@ public class TicTacToe {
 		allCoords[1] = yCoord;
 		
 		System.out.println("Valid numbers chosen");			//indicates a valid input
-		makeBoard(allCoords);
+		makeBoard(allCoords, transfer, board);
 		return(allCoords);
 	}
 
-	public static void makeBoard(int[] input){							//function for writing board in an ongoing game
-		boolean pickState = false;
+	public static void makeBoard(int[] input,boolean pickState, char[][] board){							//function for writing board in an ongoing game
 		
 		if(pickState == true){
 			board[input[0]][input[1]] = 'X';
@@ -74,7 +79,7 @@ public class TicTacToe {
 		}
 	}
 
-	public static String[] win(String[] who){								//function for determining wins, losses, and ties
+	public static String[] win(String[] who, char[][] board){								//function for determining wins, losses, and ties
 		//Note: who[0] = Loser, who[1] = Winner, who[2] = win state
 		who[2] = "false";
 		int tie = 9;
