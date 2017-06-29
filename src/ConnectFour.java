@@ -1,10 +1,10 @@
 import java.util.Scanner;
 public class ConnectFour {
 	public static void main(String[] args) {
-		char[][] board = new char[7][7];
+		char[][] board = new char[7][8];
 		int xCoordPass = 0;
-		int pseudoCoord = 7;
-		
+		int pseudoCoord = 8;
+
 		initialBoard(board, xCoordPass);
 
 		boolean switcher = false;
@@ -54,7 +54,7 @@ public class ConnectFour {
 			System.out.println(pseudoCoord);
 		}
 
-		while(xCoord > 7 || board[xCoord][pseudoCoord] == 'X' || board[xCoord][pseudoCoord] == 'O'){
+		while(xCoord > 7 || board[xCoord][pseudoCoord] == '@' || board[xCoord][pseudoCoord] == 'o'){
 
 			System.out.println("Invalid numbers chosen. Please pick other numbers between 1 and 7.");
 
@@ -68,15 +68,16 @@ public class ConnectFour {
 		return(xCoordPass);
 	}
 
-	public static void makeBoard(int input, boolean pickState, char[][] board, pseudoCoord){							//function for writing board in an ongoing game
+
+	public static void makeBoard(int input, boolean pickState, char[][] board, int pseudoCoord){							//function for writing board in an ongoing game
 
 		if(pickState == true){
-			board[input][pseudoCoord] = '@';
+			board[pseudoCoord][input] = '@';
 			pickState = false;
 			System.out.println("It's o's turn");			
 		}
 		else if(pickState != true){
-			board[input][pseudoCoord] = 'o';
+			board[pseudoCoord][input] = 'o';
 			pickState = true;
 			System.out.println("It's @'s turn");			
 		}
@@ -87,5 +88,5 @@ public class ConnectFour {
 			System.out.println();	
 		}
 	}
-
 }
+
