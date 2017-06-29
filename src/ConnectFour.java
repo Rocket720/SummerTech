@@ -3,7 +3,7 @@ public class ConnectFour {
 	public static void main(String[] args) {
 		char[][] board = new char[7][8];
 		int xCoordPass = 0;
-		int pseudoCoord = 8;
+		int pseudoCoord = 7;
 
 		initialBoard(board, xCoordPass);
 
