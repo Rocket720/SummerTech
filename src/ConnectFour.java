@@ -20,7 +20,9 @@ public class ConnectFour {
 			pickMove(board, switcher, xCoordPass, pseudoCoord);
 			who = win(who, board);
 		}
-		System.out.println("done fam squad");
+		System.out.println();
+		System.out.println(who[1] + " wins!");				//writes winner
+		System.out.println(who[0] + " loses!");				//writes loser
 	}
 
 	public static void initialBoard(char[][] board, int xCoord){	
@@ -97,14 +99,61 @@ public class ConnectFour {
 
 		for(int i = 0; i < 7; i++){
 			for(int j = 0; j < 8; j++){
+				//o
 				if(board[i][j] == 'o' && board[i][j+1] == 'o' && board[i][j+2] == 'o' && board[i][j+3] == 'o'){
+					who[0] = "@";
+					who[1] = "o";
 					who[2] = "true";
 				}
 				else if(board[i][j] == 'o' && board[i+1][j] == 'o' && board[i+2][j] == 'o' && board[i+3][j] == 'o'){
+					who[0] = "@";
+					who[1] = "o";
 					who[2] = "true";
+				}
+				else if(board[i][j] == 'o' && board[i+1][j+1] == 'o' && board[i+2][j+2] == 'o' && board[i+3][j+3] == 'o'){
+					who[0] = "@";
+					who[1] = "o";
+					who[2] = "true";
+				}
+				else if(board[i][j] == 'o' && board[i-1][j+1] == 'o' && board[i-2][j+2] == 'o' && board[i-3][j+3] == 'o'){
+					who[0] = "@";
+					who[1] = "o";
+					who[2] = "true";
+				}
+
+				//@
+				if(board[i][j] == '@' && board[i][j+1] == '@' && board[i][j+2] == '@' && board[i][j+3] == '@'){
+					who[0] = "o";
+					who[1] = "@";
+					who[2] = "true";
+				}
+				else if(board[i][j] == '@' && board[i+1][j] == '@' && board[i+2][j] == '@' && board[i+3][j] == '@'){
+					who[0] = "o";
+					who[1] = "@";
+					who[2] = "true";
+				}
+				else if(board[i][j] == '@' && board[i+1][j+1] == '@' && board[i+2][j+2] == '@' && board[i+3][j+3] == '@'){
+					who[0] = "o";
+					who[1] = "@";
+					who[2] = "true";
+				}
+				else if(board[i][j] == '@' && board[i-1][j+1] == '@' && board[i-2][j+2] == '@' && board[i-3][j+3] == '@'){
+					who[0] = "o";
+					who[1] = "@";
+					who[2] = "true";
+				}
+
+				if(board[i][j] != '*'){
+					tie--;
 				}
 			}
 		}
+		if(tie == 0 && who[2] == "false"){					//concludes tie if all spots are filled with no winner
+			who[0] = "Everybody";
+			who[1] = "Nobody";
+			who[2] = "true";
+		}
+		
 		return(who);
 	}
 }
