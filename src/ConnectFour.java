@@ -1,5 +1,6 @@
 import java.util.Scanner;
 public class ConnectFour {
+
 	public static void main(String[] args) {
 		char[][] board = new char[7][8];
 		int xCoordPass = 0;
@@ -39,13 +40,7 @@ public class ConnectFour {
 			}
 		}
 		System.out.println("Welcome to Connect Four!");
-		for(int i = 0; i < 6; i++){
-			for(int j = 0; j < 7; j++){
-				System.out.print(board[i][j]);
-				System.out.print(" ");
-			}
-			System.out.println();	
-		}
+		build(board);
 
 	}
 	public static int pickMove(char[][] board, boolean transfer, int xCoordPass, int pseudoCoord){							
@@ -84,12 +79,15 @@ public class ConnectFour {
 			pickState = true;
 			System.out.println("It's @'s turn");			
 		}
+		build(board);
+	}
+	public static void build(char[][] board){
 		for(int i = 0; i < 6; i++){
 			for(int j = 0; j < 7; j++){
 				System.out.print(board[i][j]);
 				System.out.print(" ");
 			}
-			System.out.println();	
+			System.out.println();
 		}
 	}
 	public static String[] win(String[] who, char[][] board){								//function for determining wins, losses, and ties
